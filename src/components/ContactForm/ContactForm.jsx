@@ -1,16 +1,25 @@
 import { useState } from 'react';
 import PropTypes from 'prop-types';
 import shortid from 'shortid';
+import { useDispatch } from 'react-redux';
+// import { useSelector, useDispatch } from 'react-redux';
+// import { getContacts } from '../../redux/contacts/selectors';
+import contactsActions from '../../redux/contacts/actions';
 
 
-function ContactForm({ onSubmit }) {
+function ContactForm() {
+    // const contacts = useSelector(getContacts);
+    const dispatch = useDispatch();
+    const onSubmit = (name, number) =>
+        dispatch(contactsActions.addContacts(name, number));
+
+
     const [name, setName] = useState('');
     const [number, setNumber] = useState('');
 
-
     const nameInputId = shortid.generate();
     const numberInputId = shortid.generate();
-
+    
     const handleSubmit = (e) => {
         e.preventDefault();
         const contact = {
